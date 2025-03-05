@@ -33,6 +33,7 @@ type AnswerAPIRouter struct {
 	reportController        *controller.ReportController
 	voteController          *controller.VoteController
 	tagController           *controller.TagController
+	tipController           *controller.TipController
 	followController        *controller.FollowController
 	collectionController    *controller.CollectionController
 	questionController      *controller.QuestionController
@@ -90,6 +91,7 @@ func NewAnswerAPIRouter(
 	metaController *controller.MetaController,
 	badgeController *controller.BadgeController,
 	adminBadgeController *controller_admin.BadgeController,
+	tipController *controller.TipController,
 ) *AnswerAPIRouter {
 	return &AnswerAPIRouter{
 		langController:          langController,
@@ -122,6 +124,7 @@ func NewAnswerAPIRouter(
 		metaController:          metaController,
 		badgeController:         badgeController,
 		adminBadgeController:    adminBadgeController,
+		tipController:           tipController,
 	}
 }
 
@@ -246,6 +249,9 @@ func (a *AnswerAPIRouter) RegisterAnswerAPIRouter(r *gin.RouterGroup) {
 	r.POST("/tag/recover", a.tagController.RecoverTag)
 	r.DELETE("/tag", a.tagController.RemoveTag)
 	r.PUT("/tag/synonym", a.tagController.UpdateTagSynonym)
+
+	// tip
+	r.POST("/tip", a.tipController.AddTip)
 
 	// collection
 	r.POST("/collection/switch", a.collectionController.CollectionSwitch)

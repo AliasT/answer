@@ -8557,6 +8557,10 @@
                     "description": "user status",
                     "type": "string"
                 },
+                "tip_count": {
+                    "description": "tip count",
+                    "type": "integer"
+                },
                 "username": {
                     "description": "username",
                     "type": "string"
@@ -11434,6 +11438,10 @@
                 "status": {
                     "description": "user status",
                     "type": "string"
+                },
+                "tip_count": {
+                    "description": "tip count",
+                    "type": "integer"
                 },
                 "username": {
                     "description": "username",

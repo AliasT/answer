@@ -39,7 +39,7 @@ import (
 	"github.com/apache/answer/internal/service/follow"
 	"github.com/apache/answer/internal/service/importer"
 	"github.com/apache/answer/internal/service/meta"
-	"github.com/apache/answer/internal/service/meta_common"
+	metacommon "github.com/apache/answer/internal/service/meta_common"
 	"github.com/apache/answer/internal/service/notice_queue"
 	"github.com/apache/answer/internal/service/notification"
 	notficationcommon "github.com/apache/answer/internal/service/notification_common"
@@ -58,6 +58,7 @@ import (
 	"github.com/apache/answer/internal/service/siteinfo_common"
 	"github.com/apache/answer/internal/service/tag"
 	tagcommon "github.com/apache/answer/internal/service/tag_common"
+	tipcommon "github.com/apache/answer/internal/service/tip_common"
 	"github.com/apache/answer/internal/service/uploader"
 	"github.com/apache/answer/internal/service/user_admin"
 	usercommon "github.com/apache/answer/internal/service/user_common"
@@ -83,6 +84,7 @@ var ProviderSetService = wire.NewSet(
 	content.NewAnswerService,
 	export.NewEmailService,
 	tagcommon.NewTagCommonService,
+	tipcommon.NewTipCommonService,
 	usercommon.NewUserCommon,
 	questioncommon.NewQuestionCommon,
 	answercommon.NewAnswerCommon,

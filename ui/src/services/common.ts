@@ -234,6 +234,10 @@ export const bookmark = (params: {
   return request.post('/answer/api/v1/collection/switch', params);
 };
 
+export const tip = (params: { object_id: string; tip_type: number }) => {
+  return request.post('/answer/api/v1/tip', params);
+};
+
 export const postVote = (
   params: { object_id: string; is_cancel: boolean } & Type.ImgCodeReq,
   type: 'down' | 'up',

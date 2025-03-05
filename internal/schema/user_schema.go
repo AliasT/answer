@@ -64,6 +64,8 @@ type UserLoginResp struct {
 	AnswerCount int `json:"answer_count"`
 	// question count
 	QuestionCount int `json:"question_count"`
+	// tip count
+	TipCount int `json:"tip_count"`
 	// rank
 	Rank int `json:"rank"`
 	// authority group

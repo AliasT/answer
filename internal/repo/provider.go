@@ -48,6 +48,7 @@ import (
 	"github.com/apache/answer/internal/repo/site_info"
 	"github.com/apache/answer/internal/repo/tag"
 	"github.com/apache/answer/internal/repo/tag_common"
+	"github.com/apache/answer/internal/repo/tip"
 	"github.com/apache/answer/internal/repo/unique"
 	"github.com/apache/answer/internal/repo/user"
 	"github.com/apache/answer/internal/repo/user_external_login"
@@ -61,6 +62,7 @@ var ProviderSetRepo = wire.NewSet(
 	data.NewDB,
 	data.NewCache,
 	comment.NewCommentRepo,
+	tip.NewTipRepo,
 	comment.NewCommentCommonRepo,
 	captcha.NewCaptchaRepo,
 	unique.NewUniqueIDRepo,

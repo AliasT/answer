@@ -28,7 +28,7 @@ import { loggedUserInfoStore } from '@/stores';
 import { useToast } from '@/hooks';
 import { useCaptchaPlugin } from '@/utils/pluginKit';
 import { tryNormalLogged } from '@/utils/guard';
-import { bookmark, postVote } from '@/services';
+import { bookmark, postVote, tip } from '@/services';
 import * as Types from '@/common/interface';
 
 interface Props {
@@ -146,6 +146,25 @@ const Index: FC<Props> = ({ className, data, source }) => {
     });
   };
 
+  const handleCoin = () => {
+    tip({ object_id: data?.id, tip_type: source === 'question' ? 2 : 3 })
+      .then(() => {
+        toast.onShow({
+          msg: 'tip success',
+          variant: 'success',
+        });
+      })
+      .catch((err) => {
+        const errMsg = err?.value;
+        if (errMsg) {
+          toast.onShow({
+            msg: errMsg,
+            variant: 'danger',
+          });
+        }
+      });
+  };
+
   return (
     <div className={classNames(className)}>
       <ButtonGroup>
@@ -175,16 +194,27 @@ const Index: FC<Props> = ({ className, data, source }) => {
           <Icon name="hand-thumbs-down-fill" />
         </Button>
       </ButtonGroup>
-      {!data?.hideCollect && (
+      <ButtonGroup>
+        {!data?.hideCollect && (
+          <Button
+            variant="outline-secondary ms-3"
+            title={t('question_detail.question_bookmark')}
+            active={bookmarkState.state}
+            onClick={handleBookmark}>
+            <Icon name="bookmark-fill" />
+            <span style={{ paddingLeft: '10px' }}>{bookmarkState.count}</span>
+          </Button>
+        )}
         <Button
-          variant="outline-secondary ms-3"
-          title={t('question_detail.question_bookmark')}
-          active={bookmarkState.state}
-          onClick={handleBookmark}>
-          <Icon name="bookmark-fill" />
-          <span style={{ paddingLeft: '10px' }}>{bookmarkState.count}</span>
+          title="tip this"
+          variant={classNames(
+            'outline-secondary',
+            source === 'answer' && 'ms-3',
+          )}
+          onClick={handleCoin}>
+          <Icon name="coin" />
         </Button>
-      )}
+      </ButtonGroup>
     </div>
   );
 };

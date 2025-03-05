@@ -73,6 +73,7 @@ var (
 		&entity.Badge{},
 		&entity.BadgeGroup{},
 		&entity.BadgeAward{},
+		&entity.Tip{},
 	}
 
 	roles = []*entity.Role{

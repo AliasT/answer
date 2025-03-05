@@ -35,6 +35,7 @@ import (
 	"github.com/apache/answer/internal/service/permission"
 	"github.com/apache/answer/internal/service/rank"
 	"github.com/apache/answer/internal/service/siteinfo_common"
+	tipcommon "github.com/apache/answer/internal/service/tip_common"
 	"github.com/apache/answer/pkg/uid"
 	"github.com/gin-gonic/gin"
 	"github.com/segmentfault/pacman/errors"
@@ -47,11 +48,13 @@ type AnswerController struct {
 	actionService         *action.CaptchaService
 	siteInfoCommonService siteinfo_common.SiteInfoCommonService
 	rateLimitMiddleware   *middleware.RateLimitMiddleware
+	tipCommonService      *tipcommon.TipCommonService
 }
 
 // NewAnswerController new controller
 func NewAnswerController(
 	answerService *content.AnswerService,
+	tipCommonService *tipcommon.TipCommonService,
 	rankService *rank.RankService,
 	actionService *action.CaptchaService,
 	siteInfoCommonService siteinfo_common.SiteInfoCommonService,
@@ -62,6 +65,7 @@ func NewAnswerController(
 		rankService:           rankService,
 		actionService:         actionService,
 		siteInfoCommonService: siteInfoCommonService,
+		tipCommonService:      tipCommonService,
 		rateLimitMiddleware:   rateLimitMiddleware,
 	}
 }
@@ -290,6 +294,22 @@ func (ac *AnswerController) Add(ctx *gin.Context) {
 	}
 	info.MemberActions = permission.GetAnswerPermission(ctx, req.UserID, info.UserID,
 		0, req.CanEdit, req.CanDelete, false)
+
+	var tip schema.TipReq
+
+	tip.ObjectID = info.ID
+	tip.TipType = entity.TipObjectAnswer
+	tip.Amount = 2
+	// dispatched by system
+	tip.UserID = ""
+
+	_, err = ac.tipCommonService.AddTip(ctx, &tip)
+
+	if err != nil {
+		handler.HandleResponse(ctx, err, nil)
+		return
+	}
+
 	handler.HandleResponse(ctx, nil, gin.H{
 		"info":     info,
 		"question": questionInfo,

@@ -32,7 +32,7 @@ import (
 	"github.com/apache/answer/internal/base/server"
 	"github.com/apache/answer/internal/base/translator"
 	"github.com/apache/answer/internal/controller"
-	"github.com/apache/answer/internal/controller/template_render"
+	templaterender "github.com/apache/answer/internal/controller/template_render"
 	"github.com/apache/answer/internal/controller_admin"
 	"github.com/apache/answer/internal/repo"
 	"github.com/apache/answer/internal/router"

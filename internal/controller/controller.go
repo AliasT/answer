@@ -28,6 +28,7 @@ var ProviderSetController = wire.NewSet(
 	NewReportController,
 	NewVoteController,
 	NewTagController,
+	NewTipController,
 	NewFollowController,
 	NewCollectionController,
 	NewUserController,
